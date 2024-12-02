@@ -5,7 +5,7 @@ import java.io.File
 import kotlin.math.abs
 
 fun MutableList<Int>.isSafe(): Boolean {
-    return ((this == this.sortedDescending() || this == this.sorted()) && this.zipWithNext().all{ (a, b) -> a != b && abs(a-b) in 1..3 })
+    return ((this == this.sortedDescending() || this == this.sorted()) && this.zipWithNext().all{ (a, b) -> abs(a-b) in 1..3 })
 }
 
 fun part1(input: List<String>): Int {
