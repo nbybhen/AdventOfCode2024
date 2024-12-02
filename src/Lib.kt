@@ -13,3 +13,7 @@ fun getTwoColumns(input: List<String>): Pair<MutableList<Int>, MutableList<Int>>
 
     return left to right
 }
+
+fun getIntColumns(input: List<String>): List<MutableList<Int>> {
+    return input.map { it.split(" ").filter { i -> i.isNotBlank() }.map { i -> i.toInt() }.toMutableList() }
+}
