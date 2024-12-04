@@ -3,21 +3,39 @@ package Day03
 import java.io.File
 
 fun part1(input: List<String>): Int {
-    val exprs: List<Sequence<MatchResult>> = input.map { Regex("mul\\(\\d+,\\d+\\)").findAll(it) }
-    val result = mutableListOf<Int>()
-    exprs.also { expr ->
-         expr.map {
-             result.add(it.map{ matchResult -> matchResult.value.substring(4, matchResult.value.length-1).split(',').map(String::toInt).fold(1) {acc, mul -> acc*mul}}.sum())
+    val exprs = input.map { Regex("mul\\(\\d+,\\d+\\)").findAll(it) }
+    return exprs.sumOf {
+        it.sumOf { matchResult ->
+            with(matchResult) {
+                value.substring(4, value.length - 1).split(',').fold(1 as Int) { acc, x -> acc * x.toInt() }
+            }
         }
     }
-    return result.sum()
 }
 
 fun part2(input: List<String>): Int {
-
+    val exprs = input.map {Regex("mul\\(\\d+,\\d+\\)|do(n't)*\\(\\)").findAll(it) }
+    var can = true
+    return exprs.sumOf {
+        it.sumOf { matchResult ->
+            with(matchResult) {
+                when  {
+                    matchResult.value.startsWith("don't") -> can = false
+                    matchResult.value.startsWith("do") -> can = true
+                    else -> {}
+                }
+                if (can && !matchResult.value.startsWith("do")) {
+                    value.substring(4, value.length - 1).split(',').fold(1 as Int) { acc, x -> acc * x.toInt() }
+                } else {
+                    0
+                }
+            }
+        }
+    }
 }
 
 fun main() {
     val input = File("src/Day03/input.txt").inputStream().bufferedReader().readLines()
     println("Part 1: ${part1(input)}")
+    println("Part 2: ${part2(input)}")
 }
