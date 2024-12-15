@@ -23,15 +23,15 @@ fun getIntColumns(input: List<String>): List<MutableList<Int>> {
 fun List<String>.paddedWith(delim: String, depth: Int, contentLen: Int = this[0].length): List<String> {
     return buildList {
         repeat(depth) {
-            add(delim.repeat(contentLen))
+            add(delim.repeat(contentLen + (depth * 2)))
         }
 
         for (string in this@paddedWith) {
-            add( delim.repeat(depth) + string + delim.repeat(depth))
+            add(delim.repeat(depth) + string + delim.repeat(depth))
         }
 
         repeat(depth) {
-            add(delim.repeat(contentLen))
+            add(delim.repeat(contentLen + (depth * 2)))
         }
     }
 }
