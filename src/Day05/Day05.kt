@@ -1,14 +1,16 @@
 package Day05
-
-import Day04.part1
-import Day04.part2
 import java.io.File
 
 fun part1(input: List<String>): Int {
+    val rules  = input.filter{it.contains('|')}
+    val order = input.filter {it.contains(',')}
+    println("Rules: $rules")
+    println("Order: $order")
     return 0
 }
 
 fun part2(input: List<String>): Int {
+
     return 0
 }
 
